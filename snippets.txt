@@ -1,0 +1,22 @@
+   witness_list = []
+    for i in nx.nodes(g):
+        witnesses = requests.get('https://api.helium.io/v1/hotspots/' + i + '/witnesses')
+        response = witnesses.json()
+        witness_list.append({'hotspot_id': i, 'witnesses': response['data']})
+        print(i+'\n')
+        for j in response['data']:
+            if j['address'] in nx.nodes(g):
+                g.add_edge(i, j['address'])
+        time.sleep(1)
+    with open('witness.json', 'w') as f:
+        json.dump(witness_list, f)
+    
+    hotspots = requests.get(main_url + query_box)
+    finish = False
+    while not finish:
+        response = hotspots.json()
+        data.extend(response['data'])
+        if 'cursor' in response:
+            hotspots = requests.get(main_url + 'cursor=' + response['cursor'])
+        else:
+            finish = True
