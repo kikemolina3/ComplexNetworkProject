@@ -27,12 +27,12 @@ if __name__ == "__main__":
                 for m in k['witnesses']:
                     if m['address'] in nx.nodes(g):
                         g.add_edge(k['hotspot_id'], m['address'])
-        matplotlib.use('pdf')
-        plt.gca().invert_xaxis()
-        plt.gca().invert_yaxis()
-        nx.draw_networkx(g, pos=nx.get_node_attributes(g, 'pos'), node_size=10, with_labels=False, width=0.3, arrowstyle='->')
-        plt.savefig(i['name'] + ".pdf")
-        plt.clf()
+        # matplotlib.use('pdf')
+        # plt.gca().invert_xaxis()
+        # plt.gca().invert_yaxis()
+        # nx.draw_networkx(g, pos=nx.get_node_attributes(g, 'pos'), node_size=10, with_labels=False, width=0.3, arrowstyle='->')
+        # plt.savefig(i['name'] + ".pdf")
+        # plt.clf()
         print('**************')
         print(upper(i['name']))
         print('\tNumber of hotstops: ' + str(nx.number_of_nodes(g)))
@@ -43,19 +43,19 @@ if __name__ == "__main__":
         print('\tAvg out degree: ' + str(statistics.mean(list(len(g.out_edges(i)) for i in nx.nodes(g)))))
         print('\tAvg clustering coefficient: ' + str(nx.average_clustering(g)))
 
-        if i['name'] == 'catalunya':
-            plt.gca().invert_xaxis()
-            plt.gca().invert_yaxis()
-            nx.draw_networkx_edges(g, pos, edge_color='k', width=0.3, node_size=20, arrowstyle='->')
-            color = 0
-            communities = [list(i) for i in greedy_modularity_communities(g)]
-            for c in communities:
-                if len(c) > 10:
-                    color += 1
-                    color_index = color
-                else:
-                    color_index = 0
-                nx.draw_networkx_nodes(g, pos, nodelist=c, node_color=colors[color_index], node_size=10)
-            plt.savefig(i['name'] + "-community.pdf")
-            plt.clf()
+        # if i['name'] == 'catalunya':
+        #     plt.gca().invert_xaxis()
+        #     plt.gca().invert_yaxis()
+        #     nx.draw_networkx_edges(g, pos, edge_color='k', width=0.3, node_size=20, arrowstyle='->')
+        #     color = 0
+        #     communities = [list(i) for i in greedy_modularity_communities(g)]
+        #     for c in communities:
+        #         if len(c) > 10:
+        #             color += 1
+        #             color_index = color
+        #         else:
+        #             color_index = 0
+        #         nx.draw_networkx_nodes(g, pos, nodelist=c, node_color=colors[color_index], node_size=10)
+        #     plt.savefig(i['name'] + "-community.pdf")
+        #     plt.clf()
 
